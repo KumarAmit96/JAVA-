@@ -3,6 +3,9 @@
  */
 package learning;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  * @author Ajay_triffort
  *
@@ -13,6 +16,20 @@ public class ConnectionData {
 	public static final String DB_URL="jdbc:mysql://127.0.0.1:3306/employee";
 	public static final String USER = "root";
 	public static final String PASS = "honda5112amit";
+	public static int i=0;
+	
+	public static java.sql.Connection  getConnection() throws SQLException
+	{
+		java.sql.Connection con=null;
+		try {
+			Class.forName(ConnectionData.JDBC_DRIVER);
+			con=DriverManager.getConnection(ConnectionData.DB_URL, ConnectionData.USER, ConnectionData.PASS);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return con;
+	}
 	
 	public static String generateCode() 
 	{
