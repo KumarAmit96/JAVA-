@@ -28,11 +28,11 @@ public class LoginServlet extends HttpServlet {
 		String cellphone = request.getParameter("cellphone"); 
 		if((!name.isEmpty()|| name!=null) && (!designation.isEmpty() || designation!=null )&& (!age.isEmpty() || age!=null) && (!cellphone.isEmpty()|| cellphone!=null))
 		{
-			Connection con=null;
+			java.sql.Connection con=null;
 			Statement stmt=null;
 			try 
 			{
-				con=ConnectionData.getConnection();
+				con= ConnectionData.getConnection();
 				if(con!=null)
 				{
 					stmt=con.createStatement();

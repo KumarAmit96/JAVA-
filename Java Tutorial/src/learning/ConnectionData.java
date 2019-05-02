@@ -4,10 +4,12 @@
 package learning;
 
 import java.sql.DriverManager;
-import java.util.*;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.sql.*;
 
 /**
  * @author Ajay_triffort
@@ -25,7 +27,7 @@ public class ConnectionData {
 	{
 		java.sql.Connection con=null;
 		try {
-			Class.forName(ConnectionData.JDBC_DRIVER);
+			Class.forName(JDBC_DRIVER);
 			con=DriverManager.getConnection(ConnectionData.DB_URL, ConnectionData.USER, ConnectionData.PASS);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -56,12 +58,12 @@ public class ConnectionData {
 		 		return sb.toString(); 
 	}
 	
-	public static DateFormat getTime()
+	public static String getTime()
 	{
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		System.out.println(dateFormat.format(date));
-		return dateFormat;
+		LocalDateTime myDateObj = LocalDateTime.now(); 
+	    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); 
+	    String formattedDate = myDateObj.format(myFormatObj); 
+	    return formattedDate;
 	}
 
 }

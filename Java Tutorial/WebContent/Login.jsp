@@ -10,10 +10,10 @@
 <div class="login-page">
   <div class="form">
     <form class="register-form" method="post" action="Login">
-      <input type="text" placeholder="name"/>
-      <input type="text" placeholder="designation"/>
-      <input type="text" placeholder="age"/>
-      <input type="text" placeholder="cellphone" maxlength="10"/>
+      <input type="text" placeholder="name" name="name"/>
+      <input type="text" placeholder="designation" name="designation"/>
+      <input type="text" placeholder="age" name="age"/>
+      <input type="text" placeholder="cellphone" maxlength="10" name="cellphone"/>
       <input type="submit" value="Sign-Up"> 
       <p class="message">Already registered? <a href="LoginUser.jsp">Sign In</a></p>
     </form>
