@@ -4,7 +4,10 @@
 package learning;
 
 import java.sql.DriverManager;
+import java.util.*;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * @author Ajay_triffort
@@ -51,6 +54,14 @@ public class ConnectionData {
 		 		} 
 
 		 		return sb.toString(); 
+	}
+	
+	public static DateFormat getTime()
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		System.out.println(dateFormat.format(date));
+		return dateFormat;
 	}
 
 }

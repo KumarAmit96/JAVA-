@@ -9,15 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import learning.ConnectionData;
-
 import java.sql.*;
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/LoginServlet")
+@WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 		String designation = request.getParameter("designation"); 
 		String age = request.getParameter("age"); 
 		String cellphone = request.getParameter("cellphone"); 
-		if(!name.isEmpty() && !designation.isEmpty() && !age.isEmpty() && !cellphone.isEmpty())
+		if((!name.isEmpty()|| name!=null) && (!designation.isEmpty() || designation!=null )&& (!age.isEmpty() || age!=null) && (!cellphone.isEmpty()|| cellphone!=null))
 		{
 			Connection con=null;
 			Statement stmt=null;
@@ -38,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 				if(con!=null)
 				{
 					stmt=con.createStatement();
-					String sql="insert into emp_detail values ("+ConnectionData.i+","+name+","+designation+","+age+","+ConnectionData.generateCode()+","+cellphone+")";
+					String sql="insert into emp_detail values ("+ConnectionData.i+","+name+","+designation+","+age+","+ConnectionData.generateCode()+","+cellphone+","+ConnectionData.getTime()+")";
 					int i=stmt.executeUpdate(sql);
 					if(i>0)
 					{
