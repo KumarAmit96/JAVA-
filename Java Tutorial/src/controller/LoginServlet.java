@@ -9,15 +9,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import learning.ConnectionData;
-
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/LoginServlet")
+@WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,18 +28,33 @@ public class LoginServlet extends HttpServlet {
 		String designation = request.getParameter("designation"); 
 		String age = request.getParameter("age"); 
 		String cellphone = request.getParameter("cellphone"); 
-		if(!name.isEmpty() && !designation.isEmpty() && !age.isEmpty() && !cellphone.isEmpty())
+		if((!name.isEmpty()|| name!=null) && (!designation.isEmpty() || designation!=null )&& (!age.isEmpty() || age!=null) && (!cellphone.isEmpty()|| cellphone!=null))
 		{
-			Connection con=null;
-			Statement stmt=null;
+			java.sql.Connection con=null;
+			PreparedStatement stmt=null;
+		    SimpleDateFormat formatter=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");  
+		    java.util.Date date=null;
+			try {
+				 date=formatter.parse(ConnectionData.getTime());
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}  
 			try 
 			{
-				con=ConnectionData.getConnection();
+				con= ConnectionData.getConnection();
 				if(con!=null)
 				{
-					stmt=con.createStatement();
-					String sql="insert into emp_detail values ("+ConnectionData.i+","+name+","+designation+","+age+","+ConnectionData.generateCode()+","+cellphone+")";
-					int i=stmt.executeUpdate(sql);
+					String sql="insert into emp_detail (emp_id,emp_name,emp_designation,emp_age,emp_auth_id,emp_cell,emp_join) values (?,?,?,?,?,?,?)";    
+					stmt=con.prepareStatement(sql);
+					stmt.setInt(1, ConnectionData.i);
+					stmt.setString(2, name);
+					stmt.setString(3, designation);
+					stmt.setInt(4,Integer.parseInt(age));
+					stmt.setString(5, ConnectionData.generateCode());
+					stmt.setString(6, cellphone);
+					stmt.setDate(7, (Date) date);
+					int i=stmt.executeUpdate(); 
 					if(i>0)
 					{
 						RequestDispatcher req = request.getRequestDispatcher("RegistrationSuccess.jsp");

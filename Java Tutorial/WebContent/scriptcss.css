@@ -14,7 +14,7 @@
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-.form input {
+input[type=text], input[type=password] {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -25,6 +25,20 @@
   box-sizing: border-box;
   font-size: 14px;
 }
+
+input[type=submit] {
+  background-color: #0693cd;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  font-size:16px;
+  font-weight: bold;
+  line-height: 1.4;
+  padding: 10px;
+  width: 180px
+}
+
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
@@ -51,7 +65,7 @@
   color: #4CAF50;
   text-decoration: none;
 }
-.form .login-form {   //.register-form {
+.form .login-form {  
   display: none;
 }
 .container {
