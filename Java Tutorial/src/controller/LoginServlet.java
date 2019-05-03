@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/Login")
+@WebServlet("/Logins")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

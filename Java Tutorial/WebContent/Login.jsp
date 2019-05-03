@@ -9,7 +9,7 @@
 <body>
 <div class="login-page">
   <div class="form">
-    <form class="register-form" method="post" action="Login">
+    <form class="register-form" method="post" action="Logins">
       <input type="text" placeholder="name" name="name"/>
       <input type="text" placeholder="designation" name="designation"/>
       <input type="text" placeholder="age" name="age"/>
