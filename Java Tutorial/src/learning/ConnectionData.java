@@ -21,7 +21,7 @@ public class ConnectionData {
 	public static final String DB_URL="jdbc:mysql://127.0.0.1:3306/employee";
 	public static final String USER = "root";
 	public static final String PASS = "honda5112amit";
-	public static int i=0;
+	public static int a=0;
 	
 	public static java.sql.Connection  getConnection() throws SQLException
 	{
