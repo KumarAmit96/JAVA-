@@ -9,11 +9,11 @@
 <body>
 <div class="login-page">
   <div class="form">
-    <form class="register-form" method="post" action="Logins">
-      <input type="text" placeholder="name" name="name"/>
-      <input type="text" placeholder="designation" name="designation"/>
-      <input type="text" placeholder="age" name="age"/>
-      <input type="text" placeholder="cellphone" maxlength="10" name="cellphone"/>
+    <form class="register-form" autocomplete="off" method="post" action="Logins">
+      <input type="text" autocomplete="false" placeholder="name" name="name"/>
+      <input type="text" autocomplete="false" placeholder="designation" name="designation"/>
+      <input type="text" autocomplete="false" placeholder="age" name="age"/>
+      <input type="text" autocomplete="false" placeholder="cellphone" maxlength="10" name="cellphone"/>
       <input type="submit" value="Sign-Up"> 
       <p class="message">Already registered? <a href="LoginUser.jsp">Sign In</a></p>
     </form>

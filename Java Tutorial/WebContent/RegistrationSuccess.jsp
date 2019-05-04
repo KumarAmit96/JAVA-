@@ -7,10 +7,10 @@
 <title>Registration</title>
 </head>
 <body>
-<table style="with: 50%">
+<table style="width: 50%">
 	<tr><td>
-	<% String username = request.getParameter("name"); %>
-<a>Welcome   <% out.println(username); %>!!!! You have logged in at <%= new Date() %>></a></td> <td><a href="Login.jsp"><b>Logout</b></a></td> </tr>
+	
+<a>Welcome  <%= request.getAttribute("name") %>!!!! You have logged in at <%= new Date() %></a></td> <td><a href="Login.jsp"><b>Logout</b></a></td> </tr>
 </table>
 </body>
 </html>
