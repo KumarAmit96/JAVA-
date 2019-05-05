@@ -2,8 +2,11 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import learning.ConnectionData;
+import learning.PasswordUtils;
 
 /**
  * Servlet implementation class LoginPasswordSetup
@@ -28,37 +32,35 @@ public class LoginPasswordSetup extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("html/text");
 		PrintWriter pr=response.getWriter();
-		String auth_id =  request.getParameter("auth_id");
 		String username = request.getParameter("username"); 
-		String password = request.getParameter("password"); 
-		if((!auth_id.isEmpty()|| auth_id!=null) && (!username.isEmpty() || username!=null )&& (!password.isEmpty() || password!=null))
+		String password = request.getParameter("Password"); 
+		if((!username.isEmpty() || username!=null )&& (!password.isEmpty() || password!=null))
 		{
 			
 			java.sql.Connection con=null;
-			PreparedStatement stmt=null; 
+			Statement stmt=null; 
+			ResultSet rs=null;
+			String _Password="";
+			try {
+				 _Password=PasswordUtils.getCode(password);
+			} catch (NoSuchAlgorithmException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			try 
 			{
 				con= ConnectionData.getConnection();
 				if(con!=null)
 				{
-					String sql="insert into emp_login (emp_auth_id,emp_auth_password,emp_user_id) values (?,?,?)";    
-					stmt=con.prepareStatement(sql);
-					stmt.setString(1, auth_id);
-					stmt.setString(2, password);
-					stmt.setString(3, username);
-					int i=stmt.executeUpdate(); 
-					if(i>0)
+					String sql="select user_name from ecommerce.user_info where user_name='"+username+"' and user_password='"+_Password+"'";    
+					stmt=con.createStatement();
+					rs=stmt.executeQuery(sql);
+					while(rs.next())
 					{
-						RequestDispatcher req = request.getRequestDispatcher("RegistrationSuccess.jsp");
-						request.setAttribute("name", username);
-						req.include(request, response);
+						response.sendRedirect("products.html");  
+
 					}
-					else
-					{
-						RequestDispatcher req=request.getRequestDispatcher("ErrorPage.jsp");
-						req.include(request, response);
-					}
-					
+										
 				}
 				
 			}

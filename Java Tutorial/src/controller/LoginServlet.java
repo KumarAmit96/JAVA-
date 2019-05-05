@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import learning.ConnectionData;
+import learning.PasswordUtils;
+
 import java.sql.*;
 /**
  * Servlet implementation class LoginServlet
@@ -21,41 +24,44 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 	    PrintWriter out = response.getWriter();
-		String name = request.getParameter("name"); 
-		String designation = request.getParameter("designation"); 
-		String age = request.getParameter("age"); 
-		String cellphone = request.getParameter("cellphone"); 
-		if((!name.isEmpty()|| name!=null) && (!designation.isEmpty() || designation!=null )&& (!age.isEmpty() || age!=null) && (!cellphone.isEmpty()|| cellphone!=null))
+		String Name = request.getParameter("Name"); 
+		String Email = request.getParameter("Email"); 
+		String Mobile = request.getParameter("Mobile"); 
+		String Password = request.getParameter("Password"); 
+		if((!Name.isEmpty()|| Name!=null) && (!Email.isEmpty() || Email!=null )&& (!Mobile.isEmpty() || Mobile!=null) && (!Password.isEmpty()|| Password!=null))
 		{
 			java.sql.Connection con=null;
 			PreparedStatement stmt=null; 
-			String auth_id=ConnectionData.generateCode();
+			String _Password="";
+			try {
+				 _Password=PasswordUtils.getCode(Password);
+			} catch (NoSuchAlgorithmException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			try 
 			{
 				java.util.Date d=new java.util.Date();
 				con= ConnectionData.getConnection();
 				if(con!=null)
 				{
-					String sql="insert into emp_detail (emp_id,emp_name,emp_designation,emp_age,emp_auth_id,emp_cell,emp_join) values (?,?,?,?,?,?,?)";    
+					String sql="insert into ecommerce.user_info (user_name,user_email,user_mobile,user_password,user_join_date) values (?,?,?,?,?)";    
 					stmt=con.prepareStatement(sql);
-					stmt.setInt(1, ConnectionData.a);
-					stmt.setString(2, name);
-					stmt.setString(3, designation);
-					stmt.setInt(4,Integer.parseInt(age));
-					stmt.setString(5,auth_id );
-					stmt.setString(6, cellphone);
-					stmt.setDate(7, new java.sql.Date(d.getTime()));
+					stmt.setString(1, Name);
+					stmt.setString(2, Email);
+					stmt.setString(3, Mobile);
+					stmt.setString(4,_Password );
+					stmt.setDate(5, new java.sql.Date(d.getTime()));
 					int i=stmt.executeUpdate(); 
 					if(i>0)
 					{
-						RequestDispatcher req = request.getRequestDispatcher("LoginUser.jsp");
-						request.setAttribute("auth_id",auth_id);
-						req.include(request, response);
+						response.sendRedirect("products.html");  
+
 					}
 					else
 					{
-						RequestDispatcher req=request.getRequestDispatcher("ErrorPage.jsp");
-						req.include(request, response);
+						response.sendRedirect("ErrorPage.jsp");  
+
 					}
 					
 				}
@@ -63,6 +69,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			catch(Exception e)
 			{
+				response.sendRedirect("/Java Tutorial/WebContent/ErrorPage.jsp");  
 				e.printStackTrace();
 			}
 			finally

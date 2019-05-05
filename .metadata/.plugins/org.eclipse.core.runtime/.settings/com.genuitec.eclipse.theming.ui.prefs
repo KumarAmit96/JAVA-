@@ -1,10 +1,13 @@
 applyBackground=false
 approved.defs.file.last.changed.time=1554843829000
+codemix.dont.show.upsell.until=1557401206762
 configurationInstallLocation=/C\:/Users/Ajay_triffort/eclipse/jee-2018-12/eclipse/
 eclipse.preferences.version=1
-elearning.dont.show.until=1557736570579
 iconcolormode=primary
-last.download.attempt.time=1556699769297
-lastConfiguration=1556642453355
+iconreplacement=false
+includeThemingInOomph=true
+last.download.attempt.time=1557056611749
+lastConfiguration=1557056372259
 newinstall=true
+showWelcomeDialog=false
 workbench.theme=Dark Gray
