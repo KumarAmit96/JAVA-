@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +27,8 @@ public class LoginServlet extends HttpServlet {
 		String Email = request.getParameter("Email"); 
 		String Mobile = request.getParameter("Mobile"); 
 		String Password = request.getParameter("Password"); 
+		Exception e=(Exception)request.getAttribute("javax.servlet.jsp.jspException");
+
 		if((!Name.isEmpty()|| Name!=null) && (!Email.isEmpty() || Email!=null )&& (!Mobile.isEmpty() || Mobile!=null) && (!Password.isEmpty()|| Password!=null))
 		{
 			java.sql.Connection con=null;
@@ -67,17 +68,16 @@ public class LoginServlet extends HttpServlet {
 				}
 				
 			}
-			catch(Exception e)
+			catch(Exception ee)
 			{
-				response.sendRedirect("/Java Tutorial/WebContent/ErrorPage.jsp");  
-				e.printStackTrace();
+				e.getMessage();
 			}
 			finally
 			{
 				try {
 					con.close();
 					stmt.close();
-				} catch (SQLException e) {
+				} catch (SQLException ee) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

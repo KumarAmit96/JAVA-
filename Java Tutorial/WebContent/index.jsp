@@ -1,9 +1,6 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+<%@ page language="java" errorPage="ErrorPage.jsp" contentType="text/html; charset=ISO-8859-1" 
+    pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1536,7 +1533,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 			</div>
 			<div class="container">
-				<p>&copy; 2017 Electronic Store. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+			<%@ include file="ConcurrentUser.jsp" %>
 			</div>
 		</div>
 	</div>

@@ -3,12 +3,10 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +32,7 @@ public class LoginPasswordSetup extends HttpServlet {
 		PrintWriter pr=response.getWriter();
 		String username = request.getParameter("username"); 
 		String password = request.getParameter("Password"); 
+		Exception e=(Exception)request.getAttribute("javax.servlet.jsp.jspException");
 		if((!username.isEmpty() || username!=null )&& (!password.isEmpty() || password!=null))
 		{
 			
@@ -45,7 +44,7 @@ public class LoginPasswordSetup extends HttpServlet {
 				 _Password=PasswordUtils.getCode(password);
 			} catch (NoSuchAlgorithmException e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				e.getMessage();
 			}
 			try 
 			{
@@ -55,27 +54,37 @@ public class LoginPasswordSetup extends HttpServlet {
 					String sql="select user_name from ecommerce.user_info where user_name='"+username+"' and user_password='"+_Password+"'";    
 					stmt=con.createStatement();
 					rs=stmt.executeQuery(sql);
-					while(rs.next())
+					
+					if(rs.next())
 					{
 						response.sendRedirect("products.html");  
 
 					}
-										
-				}
+					else {
+						throw new Exception("new Exception");
+					}
+					}
 				
 			}
-			catch(Exception e)
+			catch(Exception ee)
 			{
-				e.printStackTrace();
+				pr.println(
+				         "<html>\n" +
+				         "<body bgcolor = \"#f0f0f0\">\n" +
+				         "<h1 align = \"center\">" + e.getMessage() + "</h1>\n");
+				
 			}
 			finally
 			{
 				try {
 					con.close();
 					stmt.close();
-				} catch (SQLException e) {
+				} catch (SQLException ee) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					pr.println(
+					         "<html>\n" +
+					         "<body bgcolor = \"#f0f0f0\">\n" +
+					         "<h1 align = \"center\">" + e.getMessage() + "</h1>\n");
 				}
 				
 			}

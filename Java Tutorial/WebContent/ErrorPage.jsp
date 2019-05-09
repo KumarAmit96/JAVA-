@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page isErrorPage="true" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -7,6 +7,6 @@
 <title>Sorry</title>
 </head>
 <body>
-<h1>Error has been occur.</h1>
+<h1>Sorry! Some bugs are occur. But don't worry we will be back with fix</h1>
 </body>
 </html>
