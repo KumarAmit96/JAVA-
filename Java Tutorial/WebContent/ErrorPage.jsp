@@ -7,6 +7,6 @@
 <title>Sorry</title>
 </head>
 <body>
-<h1>Sorry! Some bugs are occur. But don't worry we will be back with fix</h1>
+<h1>Sorry! Some bugs occurred. But don't worry we will be back with the fix.</h1>
 </body>
 </html>
